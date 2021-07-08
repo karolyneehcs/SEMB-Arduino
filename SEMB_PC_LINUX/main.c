@@ -1,22 +1,22 @@
 /**
-Apresentação Geral do Algoritmo: Sobel Robert Cross - Algotitmo de detecção de bordas em imagens pgm.
-* O Algoritmo Sobel é comumente aplicado em obter, através de uma imagem que carregam informações numéricas de 0 até 255, de forma a definir o gradiente de intensidade de acordo com estes valores e retornar como saída uma nova imagem entre os limites mais discrepantes de intensidade da imagem. A adaptação Robert Cross tem uma mesma abordagem estratégica.
+Apresentaï¿½ï¿½o Geral do Algoritmo: Sobel Robert Cross - Algotitmo de detecï¿½ï¿½o de bordas em imagens pgm.
+* O Algoritmo Sobel ï¿½ comumente aplicado em obter, atravï¿½s de uma imagem que carregam informaï¿½ï¿½es numï¿½ricas de 0 atï¿½ 255, de forma a definir o gradiente de intensidade de acordo com estes valores e retornar como saï¿½da uma nova imagem entre os limites mais discrepantes de intensidade da imagem. A adaptaï¿½ï¿½o Robert Cross tem uma mesma abordagem estratï¿½gica.
 *
-* EstratÈgia do Algoritmo: Utiliza métodos matemáticos, como convoluções, ou seja, é realizada uma operação entre duas funções de espaços vetoriais, resultando em uma nova função da região compreendida pelos limites da imagem de entrada. Através disso, são inseridas duas matrizes, e a fórmula da convolução é dada através das derivativas entre a imagem original e ambas as matrizes. Ao fim do processo, é realizado também o cálculo da direção do gradiente, calculando a arctg o resultado entre a última convolução, e uma subtração de 135º, ou 3pi/4 para obter uma orientação similar ao que o olho humano percebe. O valor de  0º é correspondente à um contraste máximo.
+* Estratï¿½gia do Algoritmo: Utiliza mï¿½todos matemï¿½ticos, como convoluï¿½ï¿½es, ou seja, ï¿½ realizada uma operaï¿½ï¿½o entre duas funï¿½ï¿½es de espaï¿½os vetoriais, resultando em uma nova funï¿½ï¿½o da regiï¿½o compreendida pelos limites da imagem de entrada. Atravï¿½s disso, sï¿½o inseridas duas matrizes, e a fï¿½rmula da convoluï¿½ï¿½o ï¿½ dada atravï¿½s das derivativas entre a imagem original e ambas as matrizes. Ao fim do processo, ï¿½ realizado tambï¿½m o cï¿½lculo da direï¿½ï¿½o do gradiente, calculando a arctg o resultado entre a ï¿½ltima convoluï¿½ï¿½o, e uma subtraï¿½ï¿½o de 135ï¿½, ou 3pi/4 para obter uma orientaï¿½ï¿½o similar ao que o olho humano percebe. O valor de  0ï¿½ ï¿½ correspondente ï¿½ um contraste mï¿½ximo.
 *
 *
 * Copyright 2021 por Anthony Jefferson e Ana Karolina
-* Instituto Federal de EducaÁ„o, CiÍncia e Tecnologia do Cear· - IFCE
+* Instituto Federal de Educaï¿½ï¿½o, Ciï¿½ncia e Tecnologia do Cearï¿½ - IFCE
 * Todos os Direitos Reservados.
 *
-* Fonte do código: https://www.programiz.com/dsa/graph-bfs
+* Fonte do cï¿½digo: https://www.programiz.com/dsa/graph-bfs
 *
-* Modo de uso da aplicação:
-* É comumente utilizado em processamento de imagens e visão computacional, usado na saúde para se reconstruir imagens que não possuem um índice de detalhes altos, como curvas presentes em veias obstruídas, em arquitetura para obter detalhes estruturais nos locais de construção que não possui informações sobre pilares estruturais, vigas, datando épocas de fundação anterior ao surgimento da primeira revolução industrial.
+* Modo de uso da aplicaï¿½ï¿½o:
+* ï¿½ comumente utilizado em processamento de imagens e visï¿½o computacional, usado na saï¿½de para se reconstruir imagens que nï¿½o possuem um ï¿½ndice de detalhes altos, como curvas presentes em veias obstruï¿½das, em arquitetura para obter detalhes estruturais nos locais de construï¿½ï¿½o que nï¿½o possui informaï¿½ï¿½es sobre pilares estruturais, vigas, datando ï¿½pocas de fundaï¿½ï¿½o anterior ao surgimento da primeira revoluï¿½ï¿½o industrial.
 
-* Entradas e Saídas: Uma imagem de extensão pgm, com valores entre 0 e 255. Saída esperada um imagem de extensão pgm com bordas destacadas, e constraste maior entre o fundo.
+* Entradas e Saï¿½das: Uma imagem de extensï¿½o pgm, com valores entre 0 e 255. Saï¿½da esperada um imagem de extensï¿½o pgm com bordas destacadas, e constraste maior entre o fundo.
 *
-* Validação e Testes: Testes de benchmark
+* Validaï¿½ï¿½o e Testes: Testes de benchmark
 *
 * Estudantes:
 * Anthony Jefferson e Ana Karolina
@@ -25,7 +25,7 @@ Apresentação Geral do Algoritmo: Sobel Robert Cross - Algotitmo de detecção de b
 * 15 de junho de 2021.
 *
 * Contexto:
-* Desenvolvimento de código exclusivo para fins acadêmicos, apresentação de nomenclatura "Trabalho T1 ARM/Linux - Desenvolvimento de SW"
+* Desenvolvimento de cï¿½digo exclusivo para fins acadï¿½micos, apresentaï¿½ï¿½o de nomenclatura "Trabalho T1 ARM/Linux - Desenvolvimento de SW"
 *
 * Plataforma alvo:
 * Plataforma Linux*/
@@ -36,11 +36,21 @@ Apresentação Geral do Algoritmo: Sobel Robert Cross - Algotitmo de detecção de b
 
 
 #include "mypgm.h"
+#include <time.h>
 
 int main(int argc, const char** argv)
 {
-  load_image_data(argv[1]);   /* Input of image1 */ 
+  clock_t tempo;
+	
+  load_image_data(argv[1]);   /* Input of image1 */
+
+  tempo = clock();
   sobelRobert_filter( );   /* Sobel filter is applied to image1 */
+  tempo = clock() - tempo;
+
+  double tempo_total = (double)tempo / (double)CLOCKS_PER_SEC;
+  printf("Robert Cross time: %f seconds\n",tempo_total);
+
   save_image_data( );   /* Output of image2 */
   return 0;
 }

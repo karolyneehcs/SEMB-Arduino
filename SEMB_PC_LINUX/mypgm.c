@@ -58,7 +58,7 @@ void save_image_data( )
   /* saida dos dados de imagem para o arquivo */
   for (y = 0; y < y_size2; y++) {
     for (x = 0; x < x_size2; x++) {
-      fputc(ENDORSE(image2[y][x]), fp);
+      fputc((image2[y][x]), fp);
     }
   }
   printf("\n-----Imagem de saida: STATUS OK-----\n\n");
@@ -148,7 +148,7 @@ void sobelRobert_filter( )
   int x, y, i, j;  /* varíaveis do Loop */
 
   /* Maximum values calculation after filtering*/
-  printf("Aplicando o filtro !\n\n");
+  //printf("Aplicando o filtro !\n\n");
   min = DBL_MAX;
   max = -DBL_MAX;
   for (y = 1; y < y_size1 - 1; y++) {
@@ -156,7 +156,7 @@ void sobelRobert_filter( )
       pixel_value = 0.0;
       for (j = -1; j <= 1; j++) {
 	    for (i = -1; i <= 1; i++) {
-	      pixel_value += weight[j + 1][i + 1] * ENDORSE(image1[y + j][x + i]);
+	      pixel_value += weight[j + 1][i + 1] * (image1[y + j][x + i]);
 	    }
       }
       if (pixel_value < min) min = pixel_value;
@@ -164,26 +164,26 @@ void sobelRobert_filter( )
     }
   }
   if ((int)(max - min) == 0) {
-    printf("Não existe!!!\n\n");
+    //printf("Não existe!!!\n\n");
     exit(1);
   }
 
-  /* New loop variables APPROX */
-  /*APPROX */int xa;
-  /*APPROX */int ya;
-  /* New pixel_value APPROX */
-  /*APPROX */double pixel_value_app;
+
+  int xa;
+  int ya;
+ 
+  double pixel_value_app;
   /* Initialization of image2[y][x] */
   x_size2 = x_size1;
   y_size2 = y_size1;
-  for (ya = 0; ENDORSE(ya < y_size2); ya++) {
-    for (xa = 0; ENDORSE(xa < x_size2); xa++) {
+  for (ya = 0; (ya < y_size2); ya++) {
+    for (xa = 0; (xa < x_size2); xa++) {
       image2[ya][xa] = 0;
     }
   }
   /* Generation of image2 after linear transformtion */
-  for (ya = 1; ENDORSE(ya < y_size1 - 1); ya++) {
-    for (xa = 1; ENDORSE(xa < x_size1 - 1); xa++) {
+  for (ya = 1; (ya < y_size1 - 1); ya++) {
+    for (xa = 1; (xa < x_size1 - 1); xa++) {
       pixel_value_app = 0.0;
       for (j = -1; j <= 1; j++) {
 	    for (i = -1; i <= 1; i++) {
