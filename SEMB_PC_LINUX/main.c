@@ -40,16 +40,16 @@ Apresentaï¿½ï¿½o Geral do Algoritmo: Sobel Robert Cross - Algotitmo de detecï¿½ï
 
 int main(int argc, const char** argv)
 {
-  clock_t tempo;
+  struct timespec time_start,time_end;
 	
   load_image_data(argv[1]);   /* Input of image1 */
 
-  tempo = clock();
+  clock_gettime(CLOCK_MONOTONIC, &time_start);
   sobelRobert_filter( );   /* Sobel filter is applied to image1 */
-  tempo = clock() - tempo;
+  clock_gettime(CLOCK_MONOTONIC, &time_end);
 
-  double tempo_total = (double)tempo / (double)CLOCKS_PER_SEC;
-  printf("Robert Cross time: %f seconds\n",tempo_total);
+  double total_times = (time_end.tv_nsec - time_start.tv_nsec) / 1000000000.0 + (time_end.tv_sec  - time_start.tv_sec);
+  	printf("%f segundos\n",total_times);
 
   save_image_data( );   /* Output of image2 */
   return 0;
