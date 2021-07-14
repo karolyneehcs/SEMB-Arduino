@@ -191,12 +191,34 @@ void sobelRobert_filter( )
   for (y = 1; y < y_size1 - 1; y++) {
     for (x = 1; x < x_size1 - 1; x++) {
       pixel_value = 0.0;
-      for (j = -1; j <= 1; j++) {
+      /*for (j = -1; j <= 1; j++) {
       for (i = -1; i <= 1; i++) {
         //pixel_value += weight[j + 1][i + 1] * (image1[y + j][x + i]);
         pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
       }
-      }
+      }*/
+      j = -1;
+      i = -1;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i = -1;
+      j++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i = -1;
+      j++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      i++;
+      pixel_value += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((y + j)*y_size1) + (x + i));
+      
       if (pixel_value < min) min = pixel_value;
       if (pixel_value > max) max = pixel_value;
     }
@@ -239,20 +261,42 @@ void sobelRobert_filter( )
   
   for (ya = 1; (ya < y_size1 - 1); ya++) {
 
-//    Serial.flush();
-//    Serial.write(0);
+    //Serial.flush();
+    //Serial.write(0);
     
     for (xa = 1; (xa < x_size1 - 1); xa++) {
       pixel_value_app = 0.0;
-      for (j = -1; j <= 1; j++) {
+      /*for (j = -1; j <= 1; j++) {
       for (i = -1; i <= 1; i++) {
         //pixel_value_app += weight[j + 1][i + 1] * image1[ya + j][xa + i];
         pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
       }
-      }
-      pixel_value_app = MAX_BRIGHTNESS * (pixel_value_app - min) / (max - min);
-      //image[ya][xa] = (unsigned char)pixel_value_app;
+      }*/
+      
 
+      j = -1;
+      i = -1;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i = -1;
+      j++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i = -1;
+      j++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+      i++;
+      pixel_value_app += weight[j + 1][i + 1] * pgm_read_byte_near(fp + seek_var + ((ya + j)*y_size1) + (xa + i));
+
+      pixel_value_app = MAX_BRIGHTNESS * (pixel_value_app - min) / (max - min);
       
 //      Serial.flush();
 //      Serial.write((unsigned char)pixel_value_app);
